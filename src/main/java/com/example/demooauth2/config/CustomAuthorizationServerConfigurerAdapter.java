@@ -8,6 +8,8 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.approval.ApprovalStore;
+import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -28,6 +30,11 @@ public class CustomAuthorizationServerConfigurerAdapter extends AuthorizationSer
     @Bean
     public TokenStore tokenStore(){
         return new JdbcTokenStore(dataSource);
+    }
+
+    @Bean
+    public ApprovalStore approvalStore(){
+        return new JdbcApprovalStore(dataSource);
     }
 
     @Bean
@@ -53,5 +60,7 @@ public class CustomAuthorizationServerConfigurerAdapter extends AuthorizationSer
         tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
         tokenServices.setAccessTokenValiditySeconds( (int) TimeUnit.DAYS.toSeconds(30)); // 30天
         endpoints.tokenServices(tokenServices);
+
+        endpoints.approvalStore(approvalStore());
     }
 }
