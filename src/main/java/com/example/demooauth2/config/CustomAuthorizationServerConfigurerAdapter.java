@@ -11,6 +11,8 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
@@ -42,6 +44,10 @@ public class CustomAuthorizationServerConfigurerAdapter extends AuthorizationSer
         return new JdbcClientDetailsService(dataSource);
     }
 
+    @Bean
+    public AuthorizationCodeServices authorizationCodeServices(){
+        return new JdbcAuthorizationCodeServices(dataSource);
+    }
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.withClientDetails(new JdbcClientDetailsService(dataSource));
@@ -62,5 +68,6 @@ public class CustomAuthorizationServerConfigurerAdapter extends AuthorizationSer
         endpoints.tokenServices(tokenServices);
 
         endpoints.approvalStore(approvalStore());
+        endpoints.authorizationCodeServices(authorizationCodeServices());
     }
 }
