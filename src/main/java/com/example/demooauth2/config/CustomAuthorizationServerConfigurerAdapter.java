@@ -4,6 +4,7 @@ import com.example.demooauth2.service.impl.CustomDefaultTokenServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.common.*;
 import org.springframework.security.oauth2.common.exceptions.InvalidScopeException;
@@ -83,5 +84,6 @@ public class CustomAuthorizationServerConfigurerAdapter extends AuthorizationSer
 
         endpoints.approvalStore(approvalStore());
         endpoints.authorizationCodeServices(authorizationCodeServices());
+        //endpoints.allowedTokenEndpointRequestMethods(HttpMethod.GET);  // 默认是不能使用get方法的，只能使用post
     }
 }
