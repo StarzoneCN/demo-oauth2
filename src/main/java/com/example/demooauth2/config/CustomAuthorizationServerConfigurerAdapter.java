@@ -1,23 +1,34 @@
 package com.example.demooauth2.config;
 
+import com.example.demooauth2.service.impl.CustomDefaultTokenServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.oauth2.common.*;
+import org.springframework.security.oauth2.common.exceptions.InvalidScopeException;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.OAuth2Request;
+import org.springframework.security.oauth2.provider.TokenRequest;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import javax.sql.DataSource;
+import java.util.Date;
+import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
@@ -28,6 +39,8 @@ public class CustomAuthorizationServerConfigurerAdapter extends AuthorizationSer
     private DataSource dataSource;
     @Autowired
     AuthenticationManager authenticationManager;
+    @Autowired
+    CustomDefaultTokenServices customDefaultTokenServices;
 
     @Bean
     public TokenStore tokenStore(){
@@ -50,7 +63,8 @@ public class CustomAuthorizationServerConfigurerAdapter extends AuthorizationSer
     }
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.withClientDetails(new JdbcClientDetailsService(dataSource));
+//        clients.withClientDetails(new JdbcClientDetailsService(dataSource));
+        clients.jdbc(dataSource);
     }
 
     @Override // 配置框架应用上述实现
@@ -59,7 +73,7 @@ public class CustomAuthorizationServerConfigurerAdapter extends AuthorizationSer
         endpoints.tokenStore(tokenStore());
 
         // 配置TokenServices参数
-        DefaultTokenServices tokenServices = new DefaultTokenServices();
+        CustomDefaultTokenServices tokenServices = customDefaultTokenServices;
         tokenServices.setTokenStore(endpoints.getTokenStore());
         tokenServices.setSupportRefreshToken(true);
         tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
