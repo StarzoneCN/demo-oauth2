@@ -41,3 +41,20 @@ CREATE TABLE `oauth_refresh_token`  (
   `token` blob NULL,
   `authentication` blob NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `user` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(20) NULL DEFAULT NULL,
+  `password` VARCHAR(500) NULL DEFAULT NULL,
+  `age` TINYINT(3) UNSIGNED NULL DEFAULT NULL,
+  `email` VARCHAR(50) NULL DEFAULT NULL,
+  `mobile` VARCHAR(11) NULL DEFAULT NULL,
+  `create_time` TIMESTAMP NULL DEFAULT NULL,
+  `operate_time` TIMESTAMP NULL DEFAULT NULL,
+  `del_flag` BIT(1) NULL DEFAULT b'0',
+  PRIMARY KEY (`id`)
+)
+  COLLATE='utf8mb4_general_ci'
+  ENGINE=InnoDB
+  AUTO_INCREMENT=1
+;
