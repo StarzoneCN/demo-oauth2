@@ -1,2 +1,6 @@
 .idea/
 *.iml
+oauth2-server-client/mvnw.cmd
+oauth2-server-client/.mvn/
+oauth2-server-client/mvnw
+oauth2-server-client/target/
