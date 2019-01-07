@@ -11,4 +11,7 @@
 	<artifactId>oauth2-server-client</artifactId>
 	<name>oauth2-server-client</name>
 	<description>OAuth2：认证服务器/资源服务器，二合一</description>
+
+	<dependencies>
+	</dependencies>
 </project>

@@ -1,6 +1,6 @@
 
 server:
-  port: 8080
+  port: 80
 
 # 持久层配置
 spring:
@@ -26,7 +26,8 @@ mybatis-plus:
 # 日志
 logging:
   level:
-    org.springframework.security: DEBUG
+    # org.springframework.security: DEBUG
+    root: debug
 
 ---
 spring:

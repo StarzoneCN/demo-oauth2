@@ -25,16 +25,17 @@ import java.util.List;
  * @modefied:
  */
 public class MybatisPlusCodeGenerator {
-    private static final String moduleName = "test";
-    private static final String[] include_tables = {"user"}; // 需要生成代码的表格，支持正则
+    private static final String subProject = "oauth2-server-client";
+    private static final String moduleName = "";
+    private static final String[] include_tables = {"users"}; // 需要生成代码的表格，支持正则
     private static final String fieldPrefix = "is"; // 字段前缀
     private static final String logicDeleteField = "del_flag";
     private static final String author = "LiHongxing";
-    private static final String sourcesDir = "/src/test/java";
+    private static final String sourcesDir = "/src/main/java";
     private static final String classpath = "/src/main/resources";
     private static final String serviceName = "%sService";
 
-    private static final String databaseUrl = "jdbc:mysql://localhost:3306/4mybatis_plus?seUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
+    private static final String databaseUrl = "jdbc:mysql://localhost:3306/oauth2_springboot?seUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
     private static final String driverClassName = "com.mysql.cj.jdbc.Driver";
     private static final String databaseUsername = "root";
     private static final String databasePassword = "3";
@@ -56,7 +57,11 @@ public class MybatisPlusCodeGenerator {
         /*全局配置*/
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + sourcesDir);
+        if (StringUtils.isNotBlank(subProject)) {
+            gc.setOutputDir(projectPath + "/" + subProject + sourcesDir);
+        } else {
+            gc.setOutputDir(projectPath + sourcesDir);
+        }
         gc.setAuthor(author);
         /*是否打开输出目录*/
         gc.setOpen(false);
@@ -131,7 +136,11 @@ public class MybatisPlusCodeGenerator {
             public String outputFile(TableInfo tableInfo) {
                 String xmlFileName = tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
                 StringBuffer sb = new StringBuffer();
-                sb.append(projectPath).append(classpath).append("/");
+                sb.append(projectPath);
+                if (StringUtils.isNotBlank(subProject)){
+                    sb.append("/").append(subProject).append("/");
+                }
+                sb.append(classpath).append("/");
                 if (StringUtils.isNotBlank(pc.getModuleName())){
                     sb.append(pc.getModuleName()).append("/");
                 }
