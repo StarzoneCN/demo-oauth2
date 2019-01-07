@@ -65,4 +65,9 @@ public class UserController {
                 StringUtils.getMessage(messageSource, "MSG_FAIL_TO_ADD_USER",
                         new String[]{users.getUsername()}));}};
     }
+
+    @GetMapping("message")
+    public String testMessageSource(String key){
+        return StringUtils.getMessage(messageSource, key, null);
+    }
 }
