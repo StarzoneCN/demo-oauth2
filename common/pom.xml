@@ -6,7 +6,7 @@
 		<groupId>personal.starzonecn.example</groupId>
 		<artifactId>demo-oauth2-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
 	</parent>
 	<artifactId>common</artifactId>
 	<name>common</name>
