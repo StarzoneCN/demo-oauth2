@@ -8,15 +8,14 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<artifactId>oauth2-server-client</artifactId>
-	<name>oauth2-server-client</name>
-	<description>OAuth2：认证服务器/资源服务器，二合一</description>
+	<artifactId>common</artifactId>
+	<name>common</name>
+	<description>其他所有模块的公共组件</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>personal.starzonecn.example</groupId>
-			<artifactId>common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 </project>

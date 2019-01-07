@@ -19,6 +19,7 @@
 
 	<modules>
 		<module>oauth2-server-client</module>
+		<module>common</module>
 	</modules>
 
 	<properties>

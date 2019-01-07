@@ -91,7 +91,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .rememberMeParameter("rememberMe")
                     .rememberMeCookieName("warplaneInLaji")
                     .tokenValiditySeconds(60 * 60).and()
-                .httpBasic();
+                .httpBasic().and()
+                /*为了方便使用postman进行测试，此处关闭csrf*/
+                .csrf().disable();
 
         http.sessionManagement().maximumSessions(1).expiredUrl("/login");
     }
