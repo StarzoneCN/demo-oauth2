@@ -21,8 +21,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory() // 使用in-memory存储
-                .withClient("client") // client_id
-                    .secret("secret") // client_secret
+                .withClient("test_oauth_client") // client_id
+                    .secret("$2a$10$afwGl2b.fIJKd/8ekyP0gemzU/dhn/9QX.MPle3Xp63sUjzHhLy1a") // BCryptPasswordEncoder加密
                     .authorizedGrantTypes("authorization_code") // 该client允许的授权类型
                     .scopes("app"); // 允许的授权范围
     }
