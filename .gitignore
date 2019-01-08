@@ -8,3 +8,5 @@ common/.gitignore
 common/.mvn/
 common/mvnw.cmd
 common/mvnw
+oauth2-resource/target/
+oauth2-server-resource/target/

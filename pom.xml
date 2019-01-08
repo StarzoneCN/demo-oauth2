@@ -18,7 +18,8 @@
 	</parent>
 
 	<modules>
-		<module>oauth2-server-client</module>
+		<module>oauth2-server-resource</module>
+		<module>oauth2-resource</module>
 		<module>common</module>
 	</modules>
 

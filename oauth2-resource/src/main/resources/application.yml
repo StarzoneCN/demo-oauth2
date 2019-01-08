@@ -1,0 +1,43 @@
+server:
+  port: 81
+
+# 持久层配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.mysql.cj.jdbc.MysqlConnectionPoolDataSource
+  profiles:
+    active: dev
+  thymeleaf:
+    prefix: classpath:/templates/
+  messages:
+    basename: i18n/messages
+    cache-duration: 24h
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-value: false
+      logic-not-delete-value: true
+  mapper-locations: classpath*:mybatis/mapper/*Mapper.xml
+  type-enums-package: com.example.demo.multi.springBoot.mybatisPlus.enums
+  type-aliases-package: com.example.demo.multi.springBoot.mybatisPlus.entity
+  type-aliases-super-type: com.baomidou.mybatisplus.extension.activerecord.Model
+  configuration:
+    call-setters-on-nulls: true
+
+# 日志
+logging:
+  level:
+    # org.springframework.security: DEBUG
+    root: debug
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/oauth2_springboot?seUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 3
+mybatis-plus:
+  global-config:
+    refresh: true
