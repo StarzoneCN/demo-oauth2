@@ -13,6 +13,8 @@ spring:
   messages:
     basename: i18n/messages
     cache-duration: 24h
+  aop:
+    auto: true
 mybatis-plus:
   global-config:
     db-config:

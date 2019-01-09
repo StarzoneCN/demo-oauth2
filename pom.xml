@@ -140,4 +140,17 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<module.common.version>0.0.1-SNAPSHOT</module.common.version>
+				<aspectjweaver.version>1.9.2</aspectjweaver.version>
+			</properties>
+		</profile>
+	</profiles>
 </project>

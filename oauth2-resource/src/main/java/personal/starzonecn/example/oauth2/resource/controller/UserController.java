@@ -38,36 +38,48 @@ public class UserController {
     public Users getUserInfoById(@PathVariable("id") Integer id){
         QueryWrapper<Users> wrapper = new QueryWrapper<Users>();
         wrapper.select("id", "username", "email", "mobile", "country_code", "address", "create_time", "enabled");
+        wrapper.eq("id", id);
         return usersService.getOne(wrapper);
     }
 
     @PostMapping("add")
     @PreAuthorize("hasAnyAuthority('user_manage')")
-    public Map<String, Object> addUser(@RequestBody Users users){
-        if (StringUtils.isBlank(users.getUsername()) || StringUtils.isBlank(users.getPassword())){
-            return new HashMap<String, Object>(){{this.put("success", false); this.put("msg",
-                    StringUtils.getMessage(messageSource, "MSG_USERNAME_OR_PASSWORD_CANT_BE_NULL",
-                            null));}};
+    public Map<String, Object> addUser(@RequestBody Users users) {
+        if (StringUtils.isBlank(users.getUsername()) || StringUtils.isBlank(users.getPassword())) {
+            return new HashMap<String, Object>() {{
+                this.put("success", false);
+                this.put("msg",
+                        StringUtils.getMessage(messageSource, "MSG_USERNAME_OR_PASSWORD_CANT_BE_NULL",
+                                null));
+            }};
         }
         QueryWrapper<Users> wrapper = new QueryWrapper();
         wrapper.eq("username", users.getUsername()).eq("enabled", 1);
         int count = usersService.count(wrapper);
         if (count > 0) {
-             return new HashMap<String, Object>(){{this.put("success", false); this.put("msg",
-                     StringUtils.getMessage(messageSource, "MSG_USER_EXISTS",
-                             new String[]{users.getUsername()}));}};
+            return new HashMap<String, Object>() {{
+                this.put("success", false);
+                this.put("msg",
+                        StringUtils.getMessage(messageSource, "MSG_USER_EXISTS",
+                                new String[]{users.getUsername()}));
+            }};
         }
         users.setPassword(passwordEncoder.encode(users.getPassword()));
         if (usersService.save(users)) {
-            return new HashMap<String, Object>(){{this.put("success", true);}};
+            return new HashMap<String, Object>() {{
+                this.put("success", true);
+            }};
         }
-        return new HashMap<String, Object>(){{this.put("success", false);this.put("msg",
-                StringUtils.getMessage(messageSource, "MSG_FAIL_TO_ADD_USER",
-                        new String[]{users.getUsername()}));}};
+        return new HashMap<String, Object>() {{
+            this.put("success", false);
+            this.put("msg",
+                    StringUtils.getMessage(messageSource, "MSG_FAIL_TO_ADD_USER",
+                            new String[]{users.getUsername()}));
+        }};
     }
 
     @GetMapping("message")
-    public String testMessageSource(String key){
+    public String testMessageSource(String key) {
         return StringUtils.getMessage(messageSource, key, null);
     }
 }
