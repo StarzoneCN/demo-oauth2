@@ -24,6 +24,18 @@ public class CustomalResourceServerConfigurer extends ResourceServerConfigurerAd
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated();
+        http
+                .authorizeRequests()
+                .antMatchers("oauth/**", "/login").permitAll()
+                .anyRequest().authenticated().and()
+                .formLogin().permitAll().and()
+                .rememberMe()
+                .key("starzoneCN")
+                .rememberMeParameter("rememberMe")
+                .rememberMeCookieName("warplaneInLaji")
+                .tokenValiditySeconds(60 * 60).and()
+                .httpBasic().and()
+                /*为了方便使用postman进行测试，此处关闭csrf*/
+                .csrf().disable();
     }
 }
