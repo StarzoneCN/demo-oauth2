@@ -80,8 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
+        http.authorizeRequests()
                 .antMatchers("oauth/**",  "/login").permitAll()
                     .anyRequest().authenticated().and()
                 .formLogin().permitAll().and()
@@ -95,7 +94,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 /*为了方便使用postman进行测试，此处关闭csrf*/
                 .csrf().disable();
 
-        http.sessionManagement().maximumSessions(1).expiredUrl("/login");
+        http.sessionManagement()
+                .maximumSessions(1)
+                // .maxSessionsPreventsLogin(true)
+                .expiredUrl("/login");
     }
 
     public static void main(String[] args) {
