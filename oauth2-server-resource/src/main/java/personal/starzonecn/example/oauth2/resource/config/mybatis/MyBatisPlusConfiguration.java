@@ -27,7 +27,7 @@ import java.io.IOException;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan("com.example.demo.multi.springBoot.*.mapper")
+@MapperScan("personal.starzonecn.example.common.mapper")
 public class MyBatisPlusConfiguration {
 
     /*逻辑删除*/
@@ -45,7 +45,7 @@ public class MyBatisPlusConfiguration {
     /*热加载*/
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
-    private String mapperLocations = "mybatis/mapper/*Mapper.xml";
+    private String mapperLocations = "mapper/*Mapper.xml";
     private boolean enabled = true;
 
     // @Bean

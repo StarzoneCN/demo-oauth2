@@ -20,9 +20,9 @@ mybatis-plus:
     db-config:
       logic-delete-value: false
       logic-not-delete-value: true
-  mapper-locations: classpath*:mybatis/mapper/*Mapper.xml
+  mapper-locations: classpath*:mapper/*Mapper.xml
   type-enums-package: com.example.demo.multi.springBoot.mybatisPlus.enums
-  type-aliases-package: com.example.demo.multi.springBoot.mybatisPlus.entity
+  type-aliases-package: personal.starzonecn.example.common.entity
   type-aliases-super-type: com.baomidou.mybatisplus.extension.activerecord.Model
   configuration:
     call-setters-on-nulls: true

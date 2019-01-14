@@ -1,7 +1,7 @@
-package personal.starzonecn.example.oauth2.resource.service;
+package personal.starzonecn.example.common.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import personal.starzonecn.example.oauth2.resource.entity.Users;
+import personal.starzonecn.example.common.entity.Users;
 
 /**
  * <p>

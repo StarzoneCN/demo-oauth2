@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import personal.starzonecn.example.oauth2.resource.service.impl.CustomUserDetialsService;
+import personal.starzonecn.example.common.service.impl.CustomUserDetialsServiceImpl;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -31,7 +31,7 @@ import javax.sql.DataSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @SuppressWarnings("SpringJavaAutowiringInspection")
-    @Resource private CustomUserDetialsService customUserDetialsService;
+    @Resource private CustomUserDetialsServiceImpl customUserDetialsService;
     @Resource private DataSource dataSource;
 
     @Bean

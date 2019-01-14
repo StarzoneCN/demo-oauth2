@@ -1,5 +1,6 @@
 package personal.starzonecn.example.oauth2.resource.config.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationEventPublisher;
@@ -12,9 +13,10 @@ import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import personal.starzonecn.example.oauth2.resource.service.impl.CustomUserDetialsService;
+import personal.starzonecn.example.common.service.impl.CustomUserDetialsServiceImpl;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -31,7 +33,7 @@ import javax.sql.DataSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @SuppressWarnings("SpringJavaAutowiringInspection")
-    @Resource private CustomUserDetialsService customUserDetialsService;
+    @Autowired private CustomUserDetialsServiceImpl customUserDetialsService;
     @Resource private DataSource dataSource;
 
     @Bean

@@ -3,14 +3,14 @@ package personal.starzonecn.example.oauth2.resource.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import personal.starzonecn.example.common.entity.Users;
+import personal.starzonecn.example.common.service.UsersService;
 import personal.starzonecn.example.common.util.StringUtils;
-import personal.starzonecn.example.oauth2.resource.entity.Users;
-import personal.starzonecn.example.oauth2.resource.service.UsersService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +35,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('user_manage', 'view_user_info')")
-    public Users getUserInfoById(@PathVariable("id") Integer id){
+    public Users getUserInfoById(HttpServletRequest request, @PathVariable("id") Integer id){
         QueryWrapper<Users> wrapper = new QueryWrapper<Users>();
         wrapper.select("id", "username", "email", "mobile", "country_code", "address", "create_time", "enabled");
         return usersService.getOne(wrapper);

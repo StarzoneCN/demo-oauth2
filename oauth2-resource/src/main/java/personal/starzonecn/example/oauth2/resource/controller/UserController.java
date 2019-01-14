@@ -4,14 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import personal.starzonecn.example.common.util.StringUtils;
-import personal.starzonecn.example.oauth2.resource.entity.Users;
+import personal.starzonecn.example.common.entity.Users;
 import personal.starzonecn.example.oauth2.resource.infrastructure.annotation.AuthenticatedUser;
-import personal.starzonecn.example.oauth2.resource.service.UsersService;
+import personal.starzonecn.example.common.service.UsersService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,17 +30,20 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     private UsersService usersService;
     @Autowired
     private MessageSource messageSource;
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('user_manage', 'view_user_info')")
-    public Users getUserInfoById(@PathVariable("id") Integer id, @RequestParam(required = false) @AuthenticatedUser User user) {
+    public Users getUserInfoById(HttpServletRequest request, @PathVariable("id") Integer id, @AuthenticatedUser Users userDetails) {
+        System.out.println(userDetails);
         QueryWrapper<Users> wrapper = new QueryWrapper<Users>();
         wrapper.select("id", "username", "email", "mobile", "country_code", "address", "create_time", "enabled");
         wrapper.eq("id", id);
-        return usersService.getOne(wrapper);
+        Users users = usersService.getOne(wrapper);
+        return users;
     }
 
     @PostMapping("add")

@@ -1,8 +1,8 @@
-package personal.starzonecn.example.oauth2.resource.mapper;
+package personal.starzonecn.example.common.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import personal.starzonecn.example.oauth2.resource.entity.Users;
+import personal.starzonecn.example.common.entity.Users;
 
 /**
  * <p>
