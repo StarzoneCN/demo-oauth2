@@ -3,10 +3,10 @@ package personal.starzonecn.example.common.entity;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.time.LocalDateTime;
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.context.annotation.Primary;
@@ -43,6 +43,7 @@ public class Users implements UserDetails {
     @TableField("password")
     @Setter
     @ToString.Exclude
+    @JsonIgnore
     private String password;
 
     @TableField("email")
@@ -76,14 +77,17 @@ public class Users implements UserDetails {
     @TableField(exist = false)
     @Setter
     @NonNull
+    @JsonIgnore
     private boolean accountNonExpired;
     @TableField(exist = false)
     @Setter
     @NonNull
+    @JsonIgnore
     private boolean accountNonLocked;
     @TableField(exist = false)
     @Setter
     @NonNull
+    @JsonIgnore
     private boolean credentialsNonExpired;
 
 
