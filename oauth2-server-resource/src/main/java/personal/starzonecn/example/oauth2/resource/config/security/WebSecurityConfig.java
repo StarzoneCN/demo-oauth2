@@ -86,7 +86,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("oauth/**",  "/login").permitAll()
                     .anyRequest().authenticated().and()
-                .formLogin().permitAll().and()
+                .formLogin().loginPage("/login").permitAll().and()
                 .rememberMe()
                     .tokenRepository(persistentTokenRepository())
                     .key("starzoneCN")
