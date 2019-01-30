@@ -14,8 +14,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
  * @date: Create in 2019/1/8 16:46
  * @modefied:
  */
-@Configuration
-@EnableResourceServer
+// @Configuration
+// @EnableResourceServer
 public class CustomalResourceServerConfigurer extends ResourceServerConfigurerAdapter {
 
     @Override
@@ -26,7 +26,7 @@ public class CustomalResourceServerConfigurer extends ResourceServerConfigurerAd
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("oauth/**", "/login").permitAll()
+                .antMatchers("/oauth/**", "/login").permitAll()
                 .anyRequest().authenticated().and()
                 .formLogin().permitAll().and()
                 .rememberMe()

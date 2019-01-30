@@ -3,6 +3,7 @@ package personal.starzonecn.example.oauth2.resource.config.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -84,7 +85,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("oauth/**",  "/login").permitAll()
+                .antMatchers("/oauth/**",  "/login").permitAll()
+                .antMatchers(HttpMethod.OPTIONS).permitAll() // 解决option请求401问题
                     .anyRequest().authenticated().and()
                 .formLogin().loginPage("/login").permitAll().and()
                 .rememberMe()
